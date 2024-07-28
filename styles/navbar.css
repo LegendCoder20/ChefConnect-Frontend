@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Krona+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sacramento&display=swap");
+
+.krona-one-regular {
+  font-family: "Krona One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.sacramento-regular {
+  font-family: "Sacramento", cursive;
+  font-weight: 400;
+  font-style: normal;
+  padding-left: 20px;
+  font-size: 55px;
+}
+
+.ribbon {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -42px;
+}
+
+.ribbon img {
+  height: 84px;
+  width: 8%;
+}
+
+/* #search-bar {
+  margin-right: "14px";
+  border-radius: "20px";
+  height: "34px";
+  color: "black";
+  padding-left: "10px";
+} */
+
+@media (max-width: 600px) {
+  .ribbon img {
+    height: 84px;
+    width: 30%;
+  }
+  .sacramento-regular {
+    font-family: "Sacramento", cursive;
+    font-weight: 400;
+    font-style: normal;
+    padding-left: 20px;
+    font-size: 45px;
+  }
+}

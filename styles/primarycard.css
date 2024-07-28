@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap");
+
+.primary-container {
+  margin: 25px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 56px;
+}
+.cards {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.cards img {
+  border-radius: 10px;
+  height: 27rem;
+}
+
+.country-name {
+  color: aliceblue;
+  font-size: larger;
+  padding: 0px 70px;
+  text-align: center;
+}
+
+.country-name h4 {
+  background-color: rgb(237, 182, 84);
+  margin-top: -17px;
+  height: 30px;
+}
+
+.alegreya {
+  font-family: "Alegreya", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
