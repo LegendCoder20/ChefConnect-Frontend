@@ -40,7 +40,7 @@ function classNames(...classes) {
 
 function Navbar() {
   return (
-    <div>
+    <React.Fragment>
       <div className="navbar">
         <div className="min-h-full">
           <Disclosure as="nav" className="bg-gray-800">
@@ -211,17 +211,6 @@ function Navbar() {
             <img src={ribbon} alt="" />
           </div>
 
-          <header className="bg-white shadow">
-            <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-              <h1 className="text-3xl tracking-tight text-center text-gray">
-                <span className="krona-one-regular ">
-                  TASTY, SIMPLE MEALS FOR
-                  <span className="sacramento-regular">Everyday Enjoyment</span>
-                </span>
-              </h1>
-            </div>
-          </header>
-
           {/* <main>
             <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
               <p>
@@ -234,7 +223,7 @@ function Navbar() {
           </main> */}
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 }
 
