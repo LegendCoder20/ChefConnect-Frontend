@@ -2,6 +2,8 @@ import React from "react";
 import "../../../styles/card.css";
 import DropdownList from "../Small Components/DropdownList";
 import {Link} from "react-router-dom";
+import HeaderTitle from "../Small Components/HeaderTitle";
+import Navbar from "../Navbar";
 
 function PrimaryCard() {
   const cards = [
@@ -93,6 +95,8 @@ function PrimaryCard() {
 
   return (
     <React.Fragment>
+      <Navbar></Navbar>
+      <HeaderTitle></HeaderTitle>
       {/* <DropdownList></DropdownList> */}
       <div className="bg-lightest-grey">
         <div className="mx-auto max-w-2xl px-4 py-4 sm:px-6 sm:py-4 lg:max-w-7xl lg:px-8 ">

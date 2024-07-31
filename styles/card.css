@@ -28,5 +28,5 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 218px;
+  max-width: 218px; /* In media query add all but remove this line max-width: 218px*/
 }
