@@ -1,5 +1,4 @@
-import React from "react";
-import {useState, useRef} from "react";
+import React, {useState, useRef} from "react";
 import emailjs from "@emailjs/browser";
 import HeaderTitle from "../Small Components/HeaderTitle";
 import Navbar from "../Navbar";

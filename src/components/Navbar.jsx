@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
   Disclosure,
   DisclosureButton,
@@ -30,9 +30,8 @@ const navigation = [
   {name: "Contact Us", href: "/contactme", current: false},
 ];
 const userNavigation = [
-  {name: "Your Profile", href: "#"},
-  {name: "Settings", href: "#"},
-  {name: "Sign out", href: "#"},
+  {name: "Your Profile", href: "/adminPanel"},
+  {name: "Sign out", href: "/"},
 ];
 
 function classNames(...classes) {
@@ -40,6 +39,10 @@ function classNames(...classes) {
 }
 
 function Navbar() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <React.Fragment>
       <div className="navbar">

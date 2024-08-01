@@ -97,7 +97,10 @@ function PrimaryCard() {
     <React.Fragment>
       <Navbar></Navbar>
       <HeaderTitle></HeaderTitle>
-      {/* <DropdownList></DropdownList> */}
+      <div className="  flex justify-end pr-10 bg-lightest-grey">
+        <DropdownList></DropdownList>
+      </div>
+
       <div className="bg-lightest-grey">
         <div className="mx-auto max-w-2xl px-4 py-4 sm:px-6 sm:py-4 lg:max-w-7xl lg:px-8 ">
           <Link to="/allRecipe">

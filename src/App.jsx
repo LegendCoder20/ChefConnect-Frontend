@@ -1,14 +1,21 @@
 import React from "react";
 import "./App.css";
 import "./index.css";
+
+// User Pages
 import PrimaryCard from "./components/Cards/PrimaryCard";
-import Footer from "./components/Footer";
 import SecondaryCard from "./components/Cards/SecondaryCard";
 import RecipeDetailPage from "./components/Cards/RecipeDetailPage";
 import ContactMe from "./components/Forms/ContactMe";
-import NotFoundPage from "./components/Small Components/NotFoundPage";
-import Login from "./components/Forms/Login";
+import Footer from "./components/Footer";
+
+// Admin Pages
 import Register from "./components/Forms/Register";
+import Login from "./components/Forms/Login";
+import AdminPanelCards from "./components/Cards/AdminPanelCards";
+import AddRecipe from "./components/Forms/AddRecipe";
+
+import NotFoundPage from "./components/Small Components/NotFoundPage";
 
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
@@ -32,9 +39,16 @@ function App() {
             {/*  */}
             <Route path="/contactme" element={<ContactMe></ContactMe>}></Route>
             {/*  */}
+            <Route path="/register" element={<Register></Register>}></Route>
+            {/*  */}
             <Route path="/login" element={<Login></Login>}></Route>
             {/*  */}
-            <Route path="/register" element={<Register></Register>}></Route>
+            <Route
+              path="/adminPanel"
+              element={<AdminPanelCards></AdminPanelCards>}
+            ></Route>
+            {/*  */}
+            <Route path="/addRecipe" element={<AddRecipe></AddRecipe>}></Route>
             {/*  */}
             <Route path="*" element={<NotFoundPage></NotFoundPage>}></Route>
             {/*  */}

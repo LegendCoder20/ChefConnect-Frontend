@@ -87,52 +87,48 @@ function SecondaryCard() {
       <HeaderTitle></HeaderTitle>
       <div className="bg-lightest-grey">
         <div className="mx-auto max-w-2xl px-4 py-4 sm:px-6 sm:py-4 lg:max-w-7xl  ">
-          <Link to="/recipeDetailPage">
-            <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-6 ">
-              {/* ////////////////////////////////////////// */}
-              {cards.map((card, index) => (
-                <div key={index} className="  overflow-hidden  ">
-                  <h1 className="card-title text-center font-bold  p-2 drop-shadow-lg  text-xl ">
+          <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-6 ">
+            {/* ////////////////////////////////////////// */}
+            {cards.map((card, index) => (
+              <div className="overflow-hidden " key={index}>
+                <Link to="/recipeDetailPage">
+                  <h1 className="card-title text-center font-bold p-2 drop-shadow-lg text-xl">
                     {capitalizeFirstLetterOfEachWord(card.countryFood)}
                   </h1>
-
-                  <a
-                    className=" md:hover:opacity-60 flex flex-col h-96 lg:h-60 rounded-b-3xl  rounded-t-3xl"
-                    href=""
-                  >
+                  <div className="md:hover:opacity-60 flex flex-col h-96 lg:h-60 rounded-b-3xl rounded-t-3xl">
                     <img
                       width="840"
                       height="1200"
                       src={card.image}
-                      className="object-cover self-center w-full h-96 md:w-full md:h-full "
+                      className="object-cover self-center w-full h-96 md:w-full md:h-full"
                       alt="dishimage"
                       data-pin-nopin="true"
                       loading="eager"
                       sizes="(min-width: 1220px) 276px, (min-width: 820px) calc(23.95vw - 11px), (min-width: 440px) 171px, 41.67vw"
                       decoding="async"
                     />
-                  </a>
+                  </div>
                   <div className="description pt-4">
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                     Vitae accusamus temporibus consequuntur aliquid magni
                     excepturi quo adipisci placeat ratione, soluta libero
-                    dolorem
+                    dolorem.
                   </div>
-                  <div className="review-container">
-                    <div className="like">
-                      <LikeButton></LikeButton>
-                    </div>
-                    <div className="comment">Comment</div>
-                    <div className="dislike">
-                      <DislikeButton></DislikeButton>
-                    </div>
+                </Link>
+                <div className="review-container">
+                  <div className="like">
+                    <LikeButton />
+                  </div>
+                  <div className="comment">Comment</div>
+                  <div className="dislike">
+                    <DislikeButton />
                   </div>
                 </div>
-              ))}
+              </div>
+            ))}
 
-              {/* ////////////////////////////////////////// */}
-            </div>
-          </Link>
+            {/* ////////////////////////////////////////// */}
+          </div>
         </div>
       </div>
     </React.Fragment>
