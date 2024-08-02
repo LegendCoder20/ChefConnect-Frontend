@@ -1,11 +1,51 @@
 import React, {useEffect} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import logo from "../../../images/ChefConnect logo Light Mode.png";
 
+import {adminLoginState, authStatusState} from "../../store/atom";
+import adminService from "../../services/adminService";
+import {useRecoilState} from "recoil";
+
 function Login() {
+  const nav = useNavigate();
+
+  const [adminLogin, setAdminLogin] = useRecoilState(adminLoginState);
+  const [authStatus, setAuthStatus] = useRecoilState(authStatusState);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setAuthStatus((prev) => ({...prev, isLoading: true}));
+
+    const formData = new FormData(e.target);
+    const adminData = {
+      email: formData.get("email"),
+      password: formData.get("password"),
+    };
+
+    try {
+      const result = await adminService.login(adminData);
+      setAdminLogin(result);
+      setAuthStatus({
+        isLoading: false,
+        isSuccess: true,
+        isError: false,
+        message: "Logged In Successfully",
+      });
+      console.log("Logged In Successfully");
+      nav("/adminPanel");
+    } catch (err) {
+      setAuthStatus({
+        isLoading: false,
+        isSuccess: false,
+        isError: true,
+        message: err.message,
+      });
+    }
+  };
 
   return (
     <React.Fragment>
@@ -18,7 +58,7 @@ function Login() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form className="space-y-6" onSubmit={handleLogin}>
             <div>
               <label
                 htmlFor="email"
@@ -33,7 +73,7 @@ function Login() {
                   type="email"
                   required
                   autoComplete="email"
-                  class="bg-gray-50 border  text-gray-900 text-sm  rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 placeholder-gray-400 ring-gray-300"
+                  className="bg-gray-50 border  text-gray-900 text-sm  rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 placeholder-gray-400 ring-gray-300"
                 />
               </div>
             </div>
@@ -62,7 +102,7 @@ function Login() {
                   type="password"
                   required
                   autoComplete="current-password"
-                  class="bg-gray-50 border  text-gray-900 text-sm  rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 placeholder-gray-400 ring-gray-300"
+                  className="bg-gray-50 border  text-gray-900 text-sm  rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 placeholder-gray-400 ring-gray-300"
                 />
               </div>
             </div>

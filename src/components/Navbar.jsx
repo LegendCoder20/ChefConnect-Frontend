@@ -56,8 +56,8 @@ function Navbar() {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4">
-                      {navigation.map((item) => (
-                        <Link to={item.href}>
+                      {navigation.map((item, index) => (
+                        <Link to={item.href} key={index}>
                           <a
                             key={item.name}
                             aria-current={item.current ? "page" : undefined}

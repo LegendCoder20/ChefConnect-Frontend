@@ -1,8 +1,59 @@
 import React, {useEffect} from "react";
-import {Link} from "react-router-dom";
 import logo from "../../../images/ChefConnect logo Light Mode.png";
+import {useNavigate, Link} from "react-router-dom";
+
+import adminService from "../../services/adminService";
+import {
+  adminRegisterState,
+  adminLoginState,
+  authStatusState,
+} from "../../store/atom";
+import {useRecoilState} from "recoil";
 
 function Register() {
+  const nav = useNavigate();
+
+  const [adminRegister, setAdminRegister] = useRecoilState(adminRegisterState);
+  const [authStatus, setAuthStatus] = useRecoilState(authStatusState);
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    setAuthStatus((prev) => ({...prev, isLoading: true}));
+
+    const formData = new FormData(e.target);
+    const adminData = {
+      username: formData.get("username"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+    };
+
+    const cpassword = formData.get("cpassword");
+    if (adminData.password !== cpassword) {
+      console.log("Password Doesn't Match");
+      return;
+    }
+
+    try {
+      const result = await adminService.register(adminData);
+      setAdminRegister(result);
+      setAuthStatus({
+        isLoading: false,
+        isSuccess: true,
+        isError: false,
+        message: "Registered Successfully",
+      });
+      nav("/adminPanel");
+    } catch (err) {
+      setAuthStatus({
+        isLoading: false,
+        isSuccess: false,
+        isError: true,
+        message: err.message,
+      });
+    }
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -18,7 +69,7 @@ function Register() {
         </div>
 
         <div className="mt-3 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form method="POST" className="space-y-6">
+          <form method="POST" className="space-y-6" onSubmit={handleRegister}>
             <div>
               <label
                 htmlFor="username"
@@ -26,10 +77,10 @@ function Register() {
               >
                 Username
               </label>
-              <div class="flex">
-                <span class="inline-flex items-center px-3 text-sm  border border-e-0 rounded-s-md  dark:text-gray-400 -gray-600">
+              <div className="flex">
+                <span className="inline-flex items-center px-3 text-sm border border-e-0 rounded-s-md dark:text-gray-400 -gray-600">
                   <svg
-                    class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                    className="w-4 h-4 text-gray-500 dark:text-gray-400"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor"
@@ -40,8 +91,9 @@ function Register() {
                 </span>
                 <input
                   type="text"
-                  id="website-admin"
-                  class="rounded-none bg-gray-50 border  text-gray-900 text-sm   focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 placeholder-gray-400 ring-gray-300"
+                  name="username"
+                  id="username"
+                  className="rounded-none bg-gray-50 border text-gray-900 text-sm focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 placeholder-gray-400 ring-gray-300"
                   placeholder="eg. Aryan Manjarekar"
                 />
               </div>
@@ -56,8 +108,9 @@ function Register() {
               <div className="mt-2">
                 <input
                   type="email"
+                  name="email"
                   id="email"
-                  class="bg-gray-50 border  text-gray-900 text-sm  rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 placeholder-gray-400 ring-gray-300"
+                  className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 placeholder-gray-400 ring-gray-300"
                   required
                 />
               </div>
@@ -79,7 +132,7 @@ function Register() {
                   type="password"
                   required
                   autoComplete="current-password"
-                  class="bg-gray-50 border  text-gray-900 text-sm  rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 placeholder-gray-400 ring-gray-300"
+                  className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 placeholder-gray-400 ring-gray-300"
                 />
               </div>
             </div>
@@ -87,7 +140,7 @@ function Register() {
             <div>
               <div className="flex items-center justify-between">
                 <label
-                  htmlFor="c    Password"
+                  htmlFor="cpassword"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Confirm Password
@@ -99,7 +152,7 @@ function Register() {
                   name="cpassword"
                   type="password"
                   required
-                  class="bg-gray-50 border  text-gray-900 text-sm  rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 placeholder-gray-400 ring-gray-300"
+                  className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 placeholder-gray-400 ring-gray-300"
                 />
               </div>
             </div>
