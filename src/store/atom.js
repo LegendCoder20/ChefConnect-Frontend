@@ -10,6 +10,11 @@ export const adminLoginState = atom({
   default: null,
 });
 
+export const addRecipeState = atom({
+  key: "addRecipeState",
+  default: null,
+});
+
 export const authStatusState = atom({
   key: "authStatusState",
   default: {

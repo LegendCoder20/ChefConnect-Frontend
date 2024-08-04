@@ -1,77 +1,38 @@
-import React, {useState} from "react";
-import "../../../styles/card.css";
+import React, {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
+import axios from "axios";
+
 import HeaderTitle from "../Small Components/HeaderTitle";
 import Navbar from "../Navbar";
+import "../../../styles/card.css";
+
+// // for Breaking Description
+// For Breaking Description
+const truncateText = (text, length) => {
+  if (typeof text !== "string") return ""; // Return empty string if text is not a string
+  if (text.length <= length) return text;
+  return text.slice(0, length) + "...";
+};
 
 function SecondaryCard() {
-  const cards = [
-    {
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRj_w-NpRCnX_t4ro-6LXLqPPAQA9F_VQljbQ&s",
-      countryFood: "Paneer Tikka Masala",
-    },
-    {
-      image:
-        "https://i.pinimg.com/originals/2c/ca/d5/2ccad553273808b29d4b05573eb5b7cb.jpg",
-      countryFood: "Hydrabadi Chicken Biryani",
-    },
-    {
-      image:
-        "https://i0.wp.com/www.livewellbakeoften.com/wp-content/uploads/2023/03/German-Pancakes-7.jpg?resize=1360%2C2040&ssl=1",
-      countryFood: "Veg Kolhapuri",
-    },
-    {
-      image:
-        "https://st4.depositphotos.com/19960896/23370/i/1600/depositphotos_233705062-stock-photo-schezwan-fried-rice-masala-popular.jpg",
-      countryFood: "Chinese",
-    },
+  const [allRecipes, setAllRecipes] = useState([]);
 
-    {
-      image:
-        "https://cdn.pixabay.com/photo/2017/11/08/22/18/spaghetti-2931846_960_720.jpg",
-      countryFood: "Italian",
-    },
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const API_URL = "http://localhost:5000/api/recipes";
+        const response = await axios.get(API_URL);
+        console.log(response.data.recipes);
+        setAllRecipes(response.data.recipes);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-    {
-      image:
-        "https://cdn.pixabay.com/photo/2016/11/18/17/42/barbecue-1836053_960_720.jpg",
-      countryFood: "American BBQ",
-    },
-    {
-      image:
-        "https://cdn.pixabay.com/photo/2017/06/01/18/46/cook-2364221_960_720.jpg",
-      countryFood: "French",
-    },
-    {
-      image:
-        "https://cdn.pixabay.com/photo/2016/03/05/19/02/hamburger-1238246_960_720.jpg",
-      countryFood: "American",
-    },
-    {
-      image:
-        "https://cdn.pixabay.com/photo/2016/03/05/19/02/hamburger-1238246_960_720.jpg",
-      countryFood: "American",
-    },
-    {
-      image:
-        "https://cdn.pixabay.com/photo/2017/06/01/18/46/cook-2364221_960_720.jpg",
-      countryFood: "French",
-    },
+    fetchData();
+  }, []);
 
-    {
-      image:
-        "https://cdn.pixabay.com/photo/2017/11/08/22/18/spaghetti-2931846_960_720.jpg",
-      countryFood: "Italian",
-    },
-
-    {
-      image:
-        "https://cdn.pixabay.com/photo/2016/11/18/17/42/barbecue-1836053_960_720.jpg",
-      countryFood: "American BBQ",
-    },
-  ];
-
+  // For Capitalizing the DishName
   function capitalizeFirstLetterOfEachWord(str) {
     return str
       .split(" ")
@@ -89,17 +50,18 @@ function SecondaryCard() {
         <div className="mx-auto max-w-2xl px-4 py-4 sm:px-6 sm:py-4 lg:max-w-7xl  ">
           <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-6 ">
             {/* ////////////////////////////////////////// */}
-            {cards.map((card, index) => (
-              <div className="overflow-hidden " key={index}>
+
+            {allRecipes.map((recipe, index) => (
+              <div className="flex flex-col  " key={index}>
                 <Link to="/recipeDetailPage">
                   <h1 className="card-title text-center font-bold p-2 drop-shadow-lg text-xl">
-                    {capitalizeFirstLetterOfEachWord(card.countryFood)}
+                    {capitalizeFirstLetterOfEachWord(recipe.dishName)}
                   </h1>
                   <div className="md:hover:opacity-60 flex flex-col h-96 lg:h-60 rounded-b-3xl rounded-t-3xl">
                     <img
                       width="840"
                       height="1200"
-                      src={card.image}
+                      src={recipe.image.url}
                       className="object-cover self-center w-full h-96 md:w-full md:h-full"
                       alt="dishimage"
                       data-pin-nopin="true"
@@ -108,11 +70,9 @@ function SecondaryCard() {
                       decoding="async"
                     />
                   </div>
-                  <div className="description pt-4">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Vitae accusamus temporibus consequuntur aliquid magni
-                    excepturi quo adipisci placeat ratione, soluta libero
-                    dolorem.
+                  <div className="description pt-4 ">
+                    {truncateText(recipe.description || "", 60)}
+                    {/* {recipe.description} */}
                   </div>
                 </Link>
                 <div className="review-container">
