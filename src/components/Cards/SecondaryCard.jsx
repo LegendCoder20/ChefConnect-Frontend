@@ -52,8 +52,10 @@ function SecondaryCard() {
             {/* ////////////////////////////////////////// */}
 
             {allRecipes.map((recipe, index) => (
-              <div className="flex flex-col  " key={index}>
-                <Link to="/recipeDetailPage">
+              <div className="flex flex-col  " key={recipe._id}>
+                <Link
+                  to={`/recipeDetailPage/${recipe.user.username}/${recipe._id}`}
+                >
                   <h1 className="card-title text-center font-bold p-2 drop-shadow-lg text-xl">
                     {capitalizeFirstLetterOfEachWord(recipe.dishName)}
                   </h1>
@@ -79,7 +81,7 @@ function SecondaryCard() {
                   <div className="like">
                     <LikeButton />
                   </div>
-                  <div className="comment">Comment</div>
+                  <div className="comment">{recipe.user.username}</div>
                   <div className="dislike">
                     <DislikeButton />
                   </div>

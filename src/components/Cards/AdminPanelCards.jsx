@@ -4,9 +4,34 @@ import {Link} from "react-router-dom";
 import HeaderTitle from "../Small Components/HeaderTitle";
 import Navbar from "../Navbar";
 
+import axios from "axios";
+
 function AdminPanelCards() {
+  const [adminRecipe, setAdminRecipe] = useState([]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const API_URL = "http://localhost:5000/api/users/recipe/";
+      const token = localStorage.getItem("Admin");
+      try {
+        const response = await axios.get(API_URL, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setAdminRecipe(response.data.recipes);
+        console.log(response.data.recipes.user);
+        console.log(response.data.recipes);
+      } catch (err) {
+        console.log("Some error occurred from frontend");
+      }
+    };
+
+    fetchData();
   }, []);
 
   const cards = [
@@ -14,12 +39,6 @@ function AdminPanelCards() {
       image:
         "https://cdn.pixabay.com/photo/2017/11/08/22/18/spaghetti-2931846_960_720.jpg",
       countryFood: "Italian",
-    },
-
-    {
-      image:
-        "https://cdn.pixabay.com/photo/2016/11/18/17/42/barbecue-1836053_960_720.jpg",
-      countryFood: "American BBQ",
     },
   ];
 
@@ -54,16 +73,16 @@ function AdminPanelCards() {
         <div className="mx-auto max-w-2xl px-4 py-4 sm:px-6 sm:py-4 lg:max-w-7xl  ">
           <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-5 xl:gap-x-6 ">
             {/* ////////////////////////////////////////// */}
-            {cards.map((card, index) => (
-              <div className="overflow-hidden " key={index}>
+            {adminRecipe.map((recipe, index) => (
+              <div className="overflow-hidden " key={recipe._id}>
                 <h1 className="card-title text-center font-bold p-2 drop-shadow-lg text-xl">
-                  {capitalizeFirstLetterOfEachWord(card.countryFood)}
+                  {capitalizeFirstLetterOfEachWord(recipe.dishName)}
                 </h1>
                 <div className="md:hover:opacity-60 flex flex-col h-96 lg:h-60 rounded-b-3xl rounded-t-3xl">
                   <img
                     width="840"
                     height="1200"
-                    src={card.image}
+                    src={recipe.image.url}
                     className="object-cover self-center w-full h-96 md:w-full md:h-full"
                     alt="dishimage"
                     data-pin-nopin="true"
@@ -72,10 +91,7 @@ function AdminPanelCards() {
                     decoding="async"
                   />
                 </div>
-                <div className="description pt-4">
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                </div>
+                <div className="description pt-4">{recipe.description}</div>
                 <div className="admin-panel-buttons flex mt-4 justify-around">
                   <button
                     type="button"

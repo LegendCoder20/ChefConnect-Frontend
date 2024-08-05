@@ -58,7 +58,7 @@ function Navbar() {
                     <div className="ml-10 flex items-baseline space-x-4">
                       {navigation.map((item, index) => (
                         <Link to={item.href} key={index}>
-                          <a
+                          <div
                             key={item.name}
                             aria-current={item.current ? "page" : undefined}
                             className={classNames(
@@ -69,7 +69,7 @@ function Navbar() {
                             )}
                           >
                             {item.name}
-                          </a>
+                          </div>
                         </Link>
                       ))}
                     </div>

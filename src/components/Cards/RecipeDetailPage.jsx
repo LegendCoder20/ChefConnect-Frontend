@@ -1,52 +1,69 @@
 import React from "react";
 import Navbar from "../Navbar";
+import {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
+
+import axios from "axios";
 
 function RecipeDetailPage() {
+  const [recipe, setRecipe] = useState("");
+  const {username, recipeId} = useParams();
+
+  useEffect(() => {
+    const fetchRecipe = async () => {
+      console.log(recipeId);
+      console.log(username);
+
+      const API_URL = `http://localhost:5000/api/recipes/recipe/${recipeId}`;
+      const response = await axios.get(API_URL);
+      setRecipe(response.data.recipe);
+      console.log(response);
+    };
+    fetchRecipe();
+  }, [recipeId]);
+
+  const imageUrl = recipe.image?.url || recipe.dishName;
+
   return (
     <React.Fragment>
       <Navbar></Navbar>
-      <section class="py-8 bg-white md:py-16 antialiased">
-        <div class="max-w-screen-xl px-4 mx-auto 2xl:px-0">
-          <div class="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-10">
-            <div class="shrink-0 max-w-md lg:max-w-lg mx-auto">
+      <section className="py-8 bg-white md:py-16 antialiased">
+        <div className="max-w-screen-xl px-4 mx-auto 2xl:px-0">
+          <div className="lg:grid lg:grid-cols-2 lg:gap-8 xl:gap-10">
+            <div className="shrink-0 max-w-md lg:max-w-lg mx-auto">
               <img
-                class="w-full hidden dark:block"
-                src="https://naturallynidhi.com/wp-content/uploads/2024/01/Spicy-Peanut-Maggi-Noodles-1.jpg"
+                className="w-[530px]  hidden dark:block"
+                src={imageUrl}
                 alt=""
               />
             </div>
 
-            <div class="mt-6 sm:mt-8 lg:mt-0">
-              <p class="text-2xl font-extrabold text-gray-900 sm:text-3xl">
-                Nestle Maggi
+            <div className="mt-6 sm:mt-8 lg:mt-0">
+              <p className="text-2xl font-extrabold text-gray-900 sm:text-3xl">
+                {recipe.category}
+                <br />
+                <br />
+                {recipe.dishName}
               </p>
-              <div class="mt-4 sm:items-center sm:gap-4 sm:flex">
-                <h1 class="text-xl font-semibold text-gray-900 sm:text-xl ">
-                  - Aryan Manjarekar
+              <div className="mt-4 sm:items-center sm:gap-4 sm:flex">
+                <h1 className="text-xl font-semibold text-gray-900 sm:text-xl ">
+                  - {username}
                 </h1>
               </div>
-
-              <hr class="my-4 md:my-4 border-gray-200 dark:border-gray-800" />
-
-              <p class="mb-6 text-gray-500 dark:text-gray-400">
+              <hr className="my-4 md:my-4 border-gray-200 dark:border-gray-800" />
+              <p className="mb-6 text-gray-500 dark:text-gray-400">
                 <h1 className="sm:text-md font-bold text-black ">
                   Description
                 </h1>
                 <br />
-                Studio quality three mic array for crystal clear calls and voice
-                recordings. Six-speaker sound system for a remarkably robust and
-                high-quality audio experience. Up to 256GB of ultrafast SSD
-                storage.
+                {recipe.description}
               </p>
-
-              <p class="text-gray-500 dark:text-gray-400">
+              <p className="text-gray-500 dark:text-gray-400">
                 <h1 className="sm:text-md font-bold text-black ">
                   Recipe Steps
                 </h1>
                 <br />
-                Two Thunderbolt USB 4 ports and up to two USB 3 ports. Ultrafast
-                Wi-Fi 6 and Bluetooth 5.0 wireless. Color matched Magic Mouse
-                with Magic Keyboard or Magic Keyboard with Touch ID.
+                {recipe.recipe}
               </p>
             </div>
           </div>

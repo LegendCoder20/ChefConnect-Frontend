@@ -33,7 +33,7 @@ function App() {
             ></Route>
             {/*  */}
             <Route
-              path="/recipeDetailPage"
+              path="/recipeDetailPage/:username/:recipeId"
               element={<RecipeDetailPage></RecipeDetailPage>}
             ></Route>
             {/*  */}
