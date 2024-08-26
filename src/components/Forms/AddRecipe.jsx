@@ -11,7 +11,7 @@ function AddRecipe() {
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const url =
-    "https://chefconnect-backend.onrender.com//api/users/recipe/addrecipe";
+    "https://chefconnect-backend.onrender.com/api/users/recipe/addrecipe";
 
   const handleAddRecipe = async (e) => {
     e.preventDefault();

@@ -51,7 +51,7 @@ function Navbar() {
     window.scrollTo(0, 0);
 
     const fetchUserData = async () => {
-      let API_URL = "https://chefconnect-backend.onrender.com//api/users/me";
+      let API_URL = "https://chefconnect-backend.onrender.com/api/users/me";
       let token = localStorage.getItem("Admin");
 
       if (!token) {
@@ -114,7 +114,7 @@ function Navbar() {
                             aria-current={item.current ? "page" : undefined}
                             className={classNames(
                               item.current
-                                ? "bg-gray-900 text-white"
+                                ? "bg-gray-800 text-white"
                                 : "text-gray-300 hover:bg-gray-700 hover:text-white",
                               "rounded-md px-3 py-2  font-medium text-lg"
                             )}
@@ -233,6 +233,9 @@ function Navbar() {
                 {navigation.map((item) => (
                   <Link to={item.href} key={item.name}>
                     <DisclosureButton
+                      key={item.name}
+                      as="a"
+                      href={item.href}
                       aria-current={item.current ? "page" : undefined}
                       className={classNames(
                         item.current
@@ -248,6 +251,7 @@ function Navbar() {
               </div>
 
               {/* IF User Exists then Show Profile else Show Register */}
+
               {username ? (
                 <div className="border-t border-gray-700 pb-3 pt-4">
                   <div className="flex items-center px-5">

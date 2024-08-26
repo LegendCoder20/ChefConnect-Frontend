@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://chefconnect-backend.onrender.com//api/users/";
+const API_URL = "https://chefconnect-backend.onrender.com/api/users/";
 
 const register = async (adminData) => {
   const response = await axios.post(API_URL + "register", adminData);

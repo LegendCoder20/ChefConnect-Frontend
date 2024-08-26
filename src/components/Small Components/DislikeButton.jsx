@@ -10,7 +10,7 @@ function DislikeButton({recipeId, dislikesCount, onAlreadyDislike, setError}) {
       try {
         const token = localStorage.getItem("Admin");
         const response = await axios.get(
-          `https://chefconnect-backend.onrender.com//api/users/recipe/dislike/${recipeId}`,
+          `https://chefconnect-backend.onrender.com/api/users/recipe/dislike/${recipeId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -31,7 +31,7 @@ function DislikeButton({recipeId, dislikesCount, onAlreadyDislike, setError}) {
     try {
       const token = localStorage.getItem("Admin");
       const response = await axios.put(
-        `https://chefconnect-backend.onrender.com//api/users/recipe/dislike/${recipeId}`,
+        `https://chefconnect-backend.onrender.com/api/users/recipe/dislike/${recipeId}`,
         {},
         {
           headers: {
