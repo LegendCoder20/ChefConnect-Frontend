@@ -1,0 +1,30 @@
+.bg-lightest-grey {
+  background-color: rgba(247, 247, 247, 255);
+}
+
+/* .custom-shadow-color {
+    filter: drop-shadow(0px 0px 16px rgb(179, 175, 175));
+  } */
+
+.review-container {
+  margin-top: 10px;
+}
+
+.like__btn {
+  padding: 1px 6px;
+  background: #0080ff;
+  font-size: 16px;
+  font-family: "Open Sans", sans-serif;
+  border-radius: 5px;
+  color: #e8efff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.card-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* In media query add all but remove this line max-width: 218px*/
+}

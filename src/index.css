@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes blinkEffect {
+  0%,
+  100% {
+    filter: brightness(1) sepia(0) saturate(1);
+  }
+  50% {
+    filter: brightness(1.2) sepia(1) saturate(10) hue-rotate(45deg);
+  }
+}
+
+.blinking-image {
+  animation: blinkEffect 2s infinite;
+}
