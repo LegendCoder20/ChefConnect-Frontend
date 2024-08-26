@@ -26,7 +26,7 @@ function SecondaryCard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const API_URL = "https://chefconnect-backend.onrender.com/api/recipes";
+        const API_URL = "https://chefconnect-backend.onrender.com//api/recipes";
         const response = await axios.get(API_URL);
         setAllRecipes(response.data.recipes);
       } catch (error) {

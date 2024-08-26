@@ -1,4 +1,4 @@
-const API_URL = "https://chefconnect-backend.onrender.com/api/users/recipe/";
+const API_URL = "https://chefconnect-backend.onrender.com//api/users/recipe/";
 
 const addRecipe = async (formData, token) => {
   // console.log(token, "Token");
