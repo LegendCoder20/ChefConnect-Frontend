@@ -32,10 +32,6 @@ const navigation = [
   {name: "About", href: "/aboutus", current: true},
   {name: "Contact Us", href: "/contactme", current: true},
 ];
-const userNavigation = [
-  {name: "Your Profile", href: "/adminPanel"},
-  {name: "Sign out", href: "/"},
-];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -269,18 +265,23 @@ function Navbar() {
                     </div>
                   </div>
                   <div className="mt-3 space-y-1 px-2">
-                    {userNavigation.map((item, index) => (
-                      <Link to={item.href} key={item.name}>
-                        <DisclosureButton
-                          onClick={signOutUser}
-                          key={index}
-                          as="a"
-                          className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                        >
-                          {item.name}
-                        </DisclosureButton>
-                      </Link>
-                    ))}
+                    <Link to="/adminPanel" key="Your Profile">
+                      <DisclosureButton
+                        as="a"
+                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                      >
+                        {"Your Profile"}
+                      </DisclosureButton>
+                    </Link>
+                    <Link to="/" key="Sign out">
+                      <DisclosureButton
+                        onClick={signOutUser}
+                        as="a"
+                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                      >
+                        {"Sign out"}
+                      </DisclosureButton>
+                    </Link>
                   </div>
                 </div>
               ) : (
