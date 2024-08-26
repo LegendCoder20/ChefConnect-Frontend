@@ -90,56 +90,64 @@ function SecondaryCard() {
       <div className="bg-lightest-grey">
         <div className="mx-auto max-w-2xl px-4 py-4 sm:px-6 sm:py-4 lg:max-w-full">
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
-            {filteredRecipes.map((recipe) => (
-              <div key={recipe._id}>
-                <div className="flex flex-col rounded-lg shadow-lg hover:shadow-2xl transition duration-300 bg-white border border-gray-200 overflow-hidden transform hover:scale-105">
-                  <div className="text-center bg-gradient-to-r from-yellow-500 via-yellow-300 to-yellow-500 text-black font-bold p-2 rounded-t-lg">
-                    <h1 className="text-lg sm:text-xl">
-                      {capitalizeFirstLetterOfEachWord(recipe.dishName)}
-                    </h1>
-                  </div>
+            {filteredRecipes.length > 0 ? (
+              filteredRecipes.map((recipe) => (
+                <div key={recipe._id}>
+                  <div className="flex flex-col rounded-lg shadow-lg hover:shadow-2xl transition duration-300 bg-white border border-gray-200 overflow-hidden transform hover:scale-105">
+                    <div className="text-center bg-gradient-to-r from-yellow-500 via-yellow-300 to-yellow-500 text-black font-bold p-2 rounded-t-lg">
+                      <h1 className="text-lg sm:text-xl">
+                        {capitalizeFirstLetterOfEachWord(recipe.dishName)}
+                      </h1>
+                    </div>
 
-                  <Link
-                    to={`/recipeDetailPage/${recipe.user.username}/${recipe._id}`}
-                  >
-                    <div className="relative h-56 md:h-52 lg:h-60 overflow-hidden">
-                      <img
-                        src={recipe.image.url}
-                        className="w-full h-full object-cover"
-                        alt="dish"
-                        loading="eager"
+                    <Link
+                      to={`/recipeDetailPage/${recipe.user.username}/${recipe._id}`}
+                    >
+                      <div className="relative h-56 md:h-52 lg:h-60 overflow-hidden">
+                        <img
+                          src={recipe.image.url}
+                          className="w-full h-full object-cover"
+                          alt="dish"
+                          loading="eager"
+                        />
+                      </div>
+                    </Link>
+
+                    <div className="p-4 h-20 bg-gray-50">
+                      <p className="text-gray-700 text-sm">
+                        {truncateText(recipe.description || "", 100)}
+                      </p>
+                    </div>
+
+                    <div className="px-4 pb-2 text-right text-gray-600 font-bold italic text-sm">
+                      - {capitalizeFirstLetterOfEachWord(recipe.user.username)}
+                    </div>
+
+                    {/* Like and Dislike Buttons */}
+                    <div className="px-4 pb-4 flex justify-between items-center">
+                      <LikeButton
+                        recipeId={recipe._id}
+                        likesCount={recipe.likesCount}
+                        onAlreadyLiked={handleAlreadyLiked}
+                        setError={handleError}
+                      />
+                      <DislikeButton
+                        recipeId={recipe._id}
+                        dislikesCount={recipe.dislikesCount}
+                        onAlreadyDislike={handleAlreadyDisliked}
+                        setError={handleError}
                       />
                     </div>
-                  </Link>
-
-                  <div className="p-4 h-20 bg-gray-50">
-                    <p className="text-gray-700 text-sm">
-                      {truncateText(recipe.description || "", 100)}
-                    </p>
-                  </div>
-
-                  <div className="px-4 pb-2 text-right text-gray-600 font-bold italic text-sm">
-                    - {capitalizeFirstLetterOfEachWord(recipe.user.username)}
-                  </div>
-
-                  {/* Like and Dislike Buttons */}
-                  <div className="px-4 pb-4 flex justify-between items-center">
-                    <LikeButton
-                      recipeId={recipe._id}
-                      likesCount={recipe.likesCount}
-                      onAlreadyLiked={handleAlreadyLiked}
-                      setError={handleError}
-                    />
-                    <DislikeButton
-                      recipeId={recipe._id}
-                      dislikesCount={recipe.dislikesCount}
-                      onAlreadyDislike={handleAlreadyDisliked}
-                      setError={handleError}
-                    />
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <>
+                <div className="col-span-full text-center p-4 text-xl text-gray-600">
+                  <b>"{searchRecipe}"</b> No Such Recipe Found
+                </div>
+              </>
+            )}
           </div>
 
           {/* Toast Notification */}
