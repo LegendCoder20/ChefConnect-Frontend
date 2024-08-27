@@ -20,13 +20,12 @@ function SecondaryCard() {
   const {category} = useParams();
   const [searchRecipe, setSearchRecipe] = useState("");
   const [toastVisible, setToastVisible] = useState(false);
-  const [alreadyLiked, setAlreadyLiked] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const API_URL = "https://chefconnect-backend.onrender.com/api/recipes";
+        const API_URL = "http://localhost:5000/api/recipes";
         const response = await axios.get(API_URL);
         setAllRecipes(response.data.recipes);
       } catch (error) {
@@ -53,16 +52,6 @@ function SecondaryCard() {
     setTimeout(() => {
       setToastVisible(false);
     }, 3000);
-  };
-
-  const handleAlreadyLiked = () => {
-    setAlreadyLiked(true);
-    handleError("You Already Liked This Post!");
-  };
-
-  const handleAlreadyDisliked = () => {
-    setAlreadyLiked(false);
-    handleError("You Already Disliked This Post!");
   };
 
   return (
@@ -128,13 +117,11 @@ function SecondaryCard() {
                       <LikeButton
                         recipeId={recipe._id}
                         likesCount={recipe.likesCount}
-                        onAlreadyLiked={handleAlreadyLiked}
                         setError={handleError}
                       />
                       <DislikeButton
                         recipeId={recipe._id}
-                        dislikesCount={recipe.dislikesCount}
-                        onAlreadyDislike={handleAlreadyDisliked}
+                        dislikeCount={recipe.dislikeCount}
                         setError={handleError}
                       />
                     </div>
@@ -173,12 +160,7 @@ function SecondaryCard() {
                     />
                   </svg>
                 </div>
-                <div className="pl-2 text-sm font-medium">
-                  {errorMessage ||
-                    (alreadyLiked
-                      ? "You Already Liked This Post!"
-                      : "You Already Disliked This Post!")}
-                </div>
+                <div className="pl-2 text-sm font-medium">{errorMessage}</div>
               </div>
             </div>
           )}

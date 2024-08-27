@@ -16,8 +16,7 @@ function AdminPanelCards() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const API_URL =
-        "https://chefconnect-backend.onrender.com/api/users/recipe/";
+      const API_URL = "http://localhost:5000/api/users/recipe/";
       const token = localStorage.getItem("Admin");
       try {
         const response = await axios.get(API_URL, {
@@ -35,7 +34,7 @@ function AdminPanelCards() {
   }, []);
 
   const deleteRecipe = async (recipeId) => {
-    const API_URL = `https://chefconnect-backend.onrender.com/api/users/recipe/${recipeId}`;
+    const API_URL = `http://localhost:5000/api/users/recipe/${recipeId}`;
     const token = localStorage.getItem("Admin");
     try {
       const response = await axios.delete(API_URL, {

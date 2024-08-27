@@ -1,16 +1,16 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 
-function DislikeButton({recipeId, dislikesCount, onAlreadyDislike, setError}) {
+function DislikeButton({recipeId, dislikeCount, setError}) {
   const [disliked, setDisliked] = useState(false);
-  const [count, setCount] = useState(dislikesCount);
+  const [count, setCount] = useState(dislikeCount);
 
   useEffect(() => {
     const checkIfDisliked = async () => {
       try {
         const token = localStorage.getItem("Admin");
         const response = await axios.get(
-          `https://chefconnect-backend.onrender.com/api/users/recipe/dislike/${recipeId}`,
+          `http://localhost:5000/api/users/recipe/dislike/${recipeId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -18,7 +18,7 @@ function DislikeButton({recipeId, dislikesCount, onAlreadyDislike, setError}) {
           }
         );
         setDisliked(response.data.disliked);
-        setCount(response.data.dislikesCount);
+        setCount(response.data.dislikeCount);
       } catch (err) {
         console.log("Error Checking If Recipe Disliked -> from Frontend");
       }
@@ -31,7 +31,7 @@ function DislikeButton({recipeId, dislikesCount, onAlreadyDislike, setError}) {
     try {
       const token = localStorage.getItem("Admin");
       const response = await axios.put(
-        `https://chefconnect-backend.onrender.com/api/users/recipe/dislike/${recipeId}`,
+        `http://localhost:5000/api/users/recipe/dislike/${recipeId}`,
         {},
         {
           headers: {
@@ -42,11 +42,15 @@ function DislikeButton({recipeId, dislikesCount, onAlreadyDislike, setError}) {
 
       if (response.status === 200) {
         setDisliked(!disliked);
-        setCount(response.data.dislikesCount);
+        setCount(response.data.dislikeCount);
       }
     } catch (err) {
-      onAlreadyDislike();
-      setError("Please Login to Dislike the Recipe Post.");
+      const token = localStorage.getItem("Admin");
+      if (!token) {
+        setError("Please Login to Dislike the Recipe Post.");
+      } else {
+        setError("You Already Disliked this Recipe Post!");
+      }
     }
   };
 

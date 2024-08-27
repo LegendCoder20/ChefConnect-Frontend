@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 
-function LikeButton({recipeId, likesCount, onAlreadyLiked, setError}) {
+function LikeButton({recipeId, likesCount, setError}) {
   const [liked, setLiked] = useState(false);
   const [count, setCount] = useState(likesCount);
 
@@ -10,7 +10,7 @@ function LikeButton({recipeId, likesCount, onAlreadyLiked, setError}) {
       try {
         const token = localStorage.getItem("Admin");
         const response = await axios.get(
-          `https://chefconnect-backend.onrender.com/api/users/recipe/like/${recipeId}`,
+          `http://localhost:5000/api/users/recipe/like/${recipeId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ function LikeButton({recipeId, likesCount, onAlreadyLiked, setError}) {
     try {
       const token = localStorage.getItem("Admin");
       const response = await axios.put(
-        `https://chefconnect-backend.onrender.com/api/users/recipe/like/${recipeId}`,
+        `http://localhost:5000/api/users/recipe/like/${recipeId}`,
         {},
         {
           headers: {
@@ -44,8 +44,12 @@ function LikeButton({recipeId, likesCount, onAlreadyLiked, setError}) {
         setCount(response.data.likesCount);
       }
     } catch (err) {
-      onAlreadyLiked();
-      setError("Please Login to Like the Recipe Post.");
+      const token = localStorage.getItem("Admin");
+      if (!token) {
+        setError("Please Login to Like the Recipe Post.");
+      } else {
+        setError("You Already Liked this Recipe Post!");
+      }
     }
   };
 

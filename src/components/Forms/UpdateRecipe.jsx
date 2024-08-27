@@ -22,7 +22,7 @@ function UpdateRecipe() {
 
   useEffect(() => {
     const fetchRecipe = async () => {
-      const API_URL = `https://chefconnect-backend.onrender.com/api/recipes/recipe/${recipeId}`;
+      const API_URL = `http://localhost:5000/api/recipes/recipe/${recipeId}`;
       const token = localStorage.getItem("Admin");
       try {
         const response = await axios.get(API_URL, {
@@ -62,7 +62,7 @@ function UpdateRecipe() {
     };
 
     const token = localStorage.getItem("Admin");
-    const API_URL = `https://chefconnect-backend.onrender.com/api/users/recipe/update/${recipeId}`;
+    const API_URL = `http://localhost:5000/api/users/recipe/update/${recipeId}`;
 
     try {
       setIsSubmitting(true);
