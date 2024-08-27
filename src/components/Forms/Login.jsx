@@ -11,6 +11,7 @@ function Login() {
 
   const [adminLogin, setAdminLogin] = useRecoilState(adminLoginState);
   const [authStatus, setAuthStatus] = useRecoilState(authStatusState);
+  const [toastMessage, setToastMessage] = useState("");
   const [toastVisible, setToastVisible] = useState(false);
 
   useEffect(() => {
@@ -31,6 +32,7 @@ function Login() {
       const result = await adminService.login(adminData);
       setAdminLogin(result);
       setToastVisible(true);
+      setToastMessage("Logged In Successfully");
       setTimeout(() => setToastVisible(false), 2500);
 
       setAuthStatus({
@@ -42,6 +44,9 @@ function Login() {
       console.log("Logged In Successfully");
       nav("/adminPanel");
     } catch (err) {
+      setToastVisible(true);
+      setToastMessage("Incorrect Email or Password.");
+      setTimeout(() => setToastVisible(false), 2500);
       setAuthStatus({
         isLoading: false,
         isSuccess: false,
@@ -138,7 +143,7 @@ function Login() {
           <div className="fixed bottom-4 right-4 z-[1000]">
             <div
               id="toast-simple"
-              className="flex items-center w-full max-w-xs p-4 space-x-4 rtl:space-x-reverse bg-lime-400 divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow"
+              className="flex items-center w-full max-w-xs p-4 space-x-4 rtl:space-x-reverse bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 border border-blue-700 text-white  divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow"
               role="alert"
             >
               <svg
@@ -150,9 +155,7 @@ function Login() {
               >
                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
               </svg>
-              <div className="ps-4 text-sm font-normal">
-                Logged In Successfully
-              </div>
+              <div className="ps-4 text-sm font-normal">{toastMessage}</div>
             </div>
           </div>
         )}

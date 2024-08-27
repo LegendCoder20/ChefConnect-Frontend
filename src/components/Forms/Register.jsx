@@ -15,6 +15,7 @@ function Register() {
 
   const [adminRegister, setAdminRegister] = useRecoilState(adminRegisterState);
   const [authStatus, setAuthStatus] = useRecoilState(authStatusState);
+  const [toastMessage, setToastMessage] = useState("");
   const [toastVisible, setToastVisible] = useState(false);
 
   const handleRegister = async (e) => {
@@ -24,20 +25,33 @@ function Register() {
 
     const formData = new FormData(e.target);
     const adminData = {
-      username: formData.get("username"),
-      email: formData.get("email"),
+      username: formData.get("username").toLowerCase(),
+      email: formData.get("email").toLowerCase(),
       password: formData.get("password"),
     };
 
     const cpassword = formData.get("cpassword");
+
     if (adminData.password !== cpassword) {
-      console.log("Password Doesn't Match");
+      setToastMessage("Passwords do not match.");
+      setToastMessage("Passwords do not match.");
+      setToastVisible(true);
+      setTimeout(() => setToastVisible(false), 3000);
+      setAuthStatus({
+        isLoading: false,
+        isSuccess: false,
+        isError: true,
+        message: "Passwords do not match.",
+      });
       return;
+    } else {
+      setToastMessage("");
     }
 
     try {
       const result = await adminService.register(adminData);
       setAdminRegister(result);
+      setToastMessage(result.message || "Registered Successfully");
       setToastVisible(true);
       setTimeout(() => setToastVisible(false), 2500);
 
@@ -49,12 +63,16 @@ function Register() {
       });
       nav("/adminPanel");
     } catch (err) {
+      const errorMessage = err.response?.data?.error || "An error occurred";
       setAuthStatus({
         isLoading: false,
         isSuccess: false,
         isError: true,
-        message: err.message,
+        message: errorMessage,
       });
+      setToastMessage(errorMessage);
+      setToastVisible(true);
+      setTimeout(() => setToastVisible(false), 2500);
     }
   };
 
@@ -105,7 +123,8 @@ function Register() {
                   name="username"
                   id="username"
                   className="rounded-none bg-gray-50 border text-gray-900 text-sm focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 placeholder-gray-400 ring-gray-300"
-                  placeholder="eg. Aryan"
+                  placeholder="eg. aryan_manjarekar"
+                  required
                 />
               </div>
             </div>
@@ -123,6 +142,9 @@ function Register() {
                   id="email"
                   className="bg-gray-50 border text-gray-900 text-sm rounded-lg focus:ring-indigo-600 focus:border-indigo-600 block w-full p-2.5 placeholder-gray-400 ring-gray-300"
                   required
+                  onInput={(e) =>
+                    (e.target.value = e.target.value.toLowerCase())
+                  }
                 />
               </div>
             </div>
@@ -199,7 +221,7 @@ function Register() {
           <div className="fixed bottom-4 right-4 z-[1000]">
             <div
               id="toast-simple"
-              className="flex items-center w-full max-w-xs p-4 space-x-4 rtl:space-x-reverse bg-lime-400 divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow"
+              className="flex items-center w-full max-w-xs p-4 space-x-4 rtl:space-x-reverse bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 text-white  divide-x rtl:divide-x-reverse divide-gray-200 rounded-lg shadow"
               role="alert"
             >
               <svg
@@ -211,9 +233,7 @@ function Register() {
               >
                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
               </svg>
-              <div className="ps-4 text-sm font-normal">
-                Registered Successfully
-              </div>
+              <div className="ps-4 text-sm font-normal">{toastMessage}</div>
             </div>
           </div>
         )}

@@ -10,7 +10,7 @@ function LikeButton({recipeId, likesCount, setError}) {
       try {
         const token = localStorage.getItem("Admin");
         const response = await axios.get(
-          `http://localhost:5000/api/users/recipe/like/${recipeId}`,
+          `https://chefconnect-backend.onrender.com/api/users/recipe/like/${recipeId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ function LikeButton({recipeId, likesCount, setError}) {
     try {
       const token = localStorage.getItem("Admin");
       const response = await axios.put(
-        `http://localhost:5000/api/users/recipe/like/${recipeId}`,
+        `https://chefconnect-backend.onrender.com/api/users/recipe/like/${recipeId}`,
         {},
         {
           headers: {
