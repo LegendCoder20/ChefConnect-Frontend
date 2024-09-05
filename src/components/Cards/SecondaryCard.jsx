@@ -25,7 +25,7 @@ function SecondaryCard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const API_URL = "https://chefconnect-backend.onrender.com/api/recipes";
+        const API_URL = "http://localhost:5000/api/recipes";
         const response = await axios.get(API_URL);
         setAllRecipes(response.data.recipes);
       } catch (error) {
@@ -43,7 +43,8 @@ function SecondaryCard() {
   const filteredRecipes = allRecipes.filter(
     (recipe) =>
       recipe.category === category &&
-      recipe.dishName.toLowerCase().includes(searchRecipe.toLowerCase())
+      (recipe.dishName.toLowerCase().includes(searchRecipe.toLowerCase()) ||
+        recipe.user.username.toLowerCase().includes(searchRecipe.toLowerCase()))
   );
 
   const handleError = (message) => {

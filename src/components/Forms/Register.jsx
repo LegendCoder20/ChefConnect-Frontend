@@ -61,7 +61,7 @@ function Register() {
         isError: false,
         message: "Registered Successfully",
       });
-      nav("/adminPanel");
+      nav("/userPanel");
     } catch (err) {
       const errorMessage = err.response?.data?.error || "An error occurred";
       setAuthStatus({

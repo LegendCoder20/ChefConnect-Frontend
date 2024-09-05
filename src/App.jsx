@@ -13,7 +13,9 @@ import Footer from "./components/Footer";
 // Admin Pages
 import Register from "./components/Forms/Register";
 import Login from "./components/Forms/Login";
+import AdminLogin from "./components/Forms/AdminLogin";
 import AdminPanelCards from "./components/Cards/AdminPanelCards";
+import OwnerPanel from "./components/Cards/OwnerPanel";
 import AddRecipe from "./components/Forms/AddRecipe";
 import UpdateRecipe from "./components/Forms/UpdateRecipe";
 
@@ -49,8 +51,18 @@ function App() {
             <Route path="/login" element={<Login></Login>}></Route>
             {/*  */}
             <Route
-              path="/adminPanel"
+              path="/userPanel"
               element={<AdminPanelCards></AdminPanelCards>}
+            ></Route>
+            {/*  */}
+            <Route
+              path="/ownerPanel"
+              element={<OwnerPanel></OwnerPanel>}
+            ></Route>
+            {/*  */}
+            <Route
+              path="/adminLogin"
+              element={<AdminLogin></AdminLogin>}
             ></Route>
             {/*  */}
             <Route path="/addRecipe" element={<AddRecipe></AddRecipe>}></Route>

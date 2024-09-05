@@ -42,7 +42,7 @@ function Login() {
         message: "Logged In Successfully",
       });
       console.log("Logged In Successfully");
-      nav("/adminPanel");
+      nav("/userPanel");
     } catch (err) {
       setToastVisible(true);
       setToastMessage("Incorrect Email or Password.");
@@ -135,6 +135,11 @@ function Login() {
           <Link to="/register">
             <p className="mt-10 text-center text-sm text-gray-500">
               Not a member? Register here
+            </p>
+          </Link>
+          <Link to="/adminLogin">
+            <p className="mt-10 text-center text-sm text-gray-500">
+              Admin ? Please Log in here
             </p>
           </Link>
         </div>
