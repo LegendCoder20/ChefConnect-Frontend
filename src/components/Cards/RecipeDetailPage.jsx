@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../Navbar";
 import {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import axios from "axios";
 
 import {divideRecipeWithComma} from "../../utils/divideRecipe";
@@ -11,21 +11,54 @@ import {capitalizeFirstLetterOfEachWordRecipe} from "../../utils/capitalizeRecip
 function RecipeDetailPage() {
   const [recipe, setRecipe] = useState("");
   const {username, recipeId} = useParams();
+  const [category, setCategory] = useState("");
+  const nav = useNavigate();
+
+  const fullURL = window.location.href;
+  console.log(fullURL);
 
   useEffect(() => {
     const fetchRecipe = async () => {
       const API_URL = `https://chefconnect-backend.onrender.com/api/recipes/recipe/${recipeId}`;
       const response = await axios.get(API_URL);
       setRecipe(response.data.recipe);
+      console.log(response.data.recipe.category);
+
+      setCategory(response.data.recipe.category);
     };
     fetchRecipe();
   }, [recipeId]);
 
   const imageUrl = recipe.image?.url || recipe.dishName;
+  const navigate = () => {
+    nav(`/allRecipe/${category}`);
+  };
 
   return (
     <React.Fragment>
       <Navbar />
+      <button
+        onClick={navigate}
+        type="button"
+        className="ml-10 h-14 w-14 text-white bg-black hover:bg-black focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 "
+      >
+        <svg
+          className="w-10 h-10"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 14 10"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13 5H1m0 0l4 4m-4-4l4-4"
+          />
+        </svg>
+      </button>
+
       <section className="py-12  min-h-screen">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-16 items-start">

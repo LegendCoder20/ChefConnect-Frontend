@@ -1,13 +1,11 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 
-function LikeButton({recipeId, likesCount, setError, updateCounts}) {
+function LikeButton({recipeId, likesCount, setError}) {
   const [liked, setLiked] = useState(false);
   const [count, setCount] = useState(likesCount);
 
   useEffect(() => {
-    // console.log(`Current likes count: ${updateCounts}`);
-
     const checkIfLiked = async () => {
       try {
         const token = localStorage.getItem("Admin");
@@ -15,7 +13,7 @@ function LikeButton({recipeId, likesCount, setError, updateCounts}) {
           return;
         }
         const response = await axios.get(
-          `https://chefconnect-backend.onrender.com/api/users/recipe/like/${recipeId}`,
+          `http://localhost:5000/api/users/recipe/like/${recipeId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -25,14 +23,13 @@ function LikeButton({recipeId, likesCount, setError, updateCounts}) {
         setLiked(response.data.liked);
         setCount(response.data.likesCount);
       } catch (err) {
-        window.location.reload();
-        console.error("Error Checking If Recipe Liked -> from Frontend", err);
+        console.error("Error Checking If Recipe Liked", err);
         setError("Error checking like status.");
       }
     };
 
     checkIfLiked();
-  }, [recipeId, setError, likesCount, count]);
+  }, [recipeId, setError]);
 
   const handleClick = async () => {
     try {
@@ -42,7 +39,7 @@ function LikeButton({recipeId, likesCount, setError, updateCounts}) {
         return;
       }
       const response = await axios.put(
-        `https://chefconnect-backend.onrender.com/api/users/recipe/like/${recipeId}`,
+        `http://localhost:5000/api/users/recipe/like/${recipeId}`,
         {},
         {
           headers: {
@@ -54,18 +51,12 @@ function LikeButton({recipeId, likesCount, setError, updateCounts}) {
       if (response.status === 200) {
         setLiked(!liked);
         setCount(response.data.likesCount);
-        updateCounts(response.data.likesCount, response.data.dislikeCount);
-        console.log(
-          "like",
-          response.data.likesCount,
-          response.data.dislikeCount
-        );
       } else {
         console.error("Unexpected response status:", response.status);
         setError("Unexpected error occurred.");
       }
     } catch (err) {
-      window.location.reload();
+      console.error("Error liking the recipe:", err);
       setError("You Already Liked this Recipe Post.");
     }
   };
@@ -81,9 +72,9 @@ function LikeButton({recipeId, likesCount, setError, updateCounts}) {
         } hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50`}
       >
         <span id="count" className="mr-2">
-          {likesCount}
+          {count}
         </span>
-        Like
+        {liked ? "Liked" : "Like"}
       </button>
     </div>
   );

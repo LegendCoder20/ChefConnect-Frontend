@@ -53,10 +53,8 @@ function Footer() {
               <Link to="/" className="hover:underline">
                 ChefConnect™
               </Link>
-              . All Rights Reserved by
-              <span className="pl-1 font-medium">
-                Owner - <b>Aryan Manjarekar</b>
-              </span>
+              . All Rights Reserved by <b>Owner - </b>
+              <span className="pl-1 font-bold">Aryan Manjarekar</span>
             </span>
           </div>
         </footer>

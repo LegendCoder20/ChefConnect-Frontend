@@ -1,13 +1,11 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 
-function DislikeButton({recipeId, dislikeCount, setError, updateCounts}) {
+function DislikeButton({recipeId, dislikeCount, setError}) {
   const [disliked, setDisliked] = useState(false);
   const [count, setCount] = useState(dislikeCount);
 
   useEffect(() => {
-    // console.log(updateCounts, "dislike");
-
     const checkIfDisliked = async () => {
       try {
         const token = localStorage.getItem("Admin");
@@ -15,7 +13,7 @@ function DislikeButton({recipeId, dislikeCount, setError, updateCounts}) {
           return;
         }
         const response = await axios.get(
-          `https://chefconnect-backend.onrender.com/api/users/recipe/dislike/${recipeId}`,
+          `http://localhost:5000/api/users/recipe/dislike/${recipeId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -23,7 +21,7 @@ function DislikeButton({recipeId, dislikeCount, setError, updateCounts}) {
           }
         );
         setDisliked(response.data.disliked);
-        setCount(response.data.dislikeCount);
+        setCount(response.data.dislikeCount); // Update count from backend response
       } catch (err) {
         console.error(
           "Error Checking If Recipe Disliked -> from Frontend",
@@ -34,7 +32,7 @@ function DislikeButton({recipeId, dislikeCount, setError, updateCounts}) {
     };
 
     checkIfDisliked();
-  }, [recipeId, setError, dislikeCount, count]);
+  }, [recipeId, setError]);
 
   const handleClick = async () => {
     try {
@@ -44,7 +42,7 @@ function DislikeButton({recipeId, dislikeCount, setError, updateCounts}) {
         return;
       }
       const response = await axios.put(
-        `https://chefconnect-backend.onrender.com/api/users/recipe/dislike/${recipeId}`,
+        `http://localhost:5000/api/users/recipe/dislike/${recipeId}`,
         {},
         {
           headers: {
@@ -54,20 +52,14 @@ function DislikeButton({recipeId, dislikeCount, setError, updateCounts}) {
       );
 
       if (response.status === 200) {
-        setDisliked(!disliked);
-        setCount(response.data.dislikeCount);
-        updateCounts(response.data.likesCount, response.data.dislikeCount);
-        console.log(
-          "dislike",
-          response.data.likesCount,
-          response.data.dislikeCount
-        );
+        setDisliked(!disliked); // Toggle the disliked state
+        setCount(response.data.dislikeCount); // Update the count
       } else {
         console.error("Unexpected response status:", response.status);
         setError("Unexpected error occurred.");
       }
     } catch (err) {
-      window.location.reload();
+      console.error("Error disliking the recipe:", err);
       setError("You Already Disliked this Recipe Post.");
     }
   };
@@ -76,7 +68,7 @@ function DislikeButton({recipeId, dislikeCount, setError, updateCounts}) {
     <button
       className={`flex items-center justify-center px-4 py-2 text-white font-semibold rounded-lg shadow-lg transition-transform transform hover:scale-105 active:scale-95 ${
         disliked
-          ? "bg-gradient-to-r  from-blue-500 to-blue-700"
+          ? "bg-gradient-to-r from-blue-500 to-blue-700"
           : "bg-gradient-to-r from-blue-500 to-blue-700"
       } hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50`}
       onClick={handleClick}
@@ -84,7 +76,7 @@ function DislikeButton({recipeId, dislikeCount, setError, updateCounts}) {
       <span id="count" className="pr-2">
         {count}
       </span>
-      Dislike
+      {disliked ? "Disliked" : "Dislike"}
     </button>
   );
 }

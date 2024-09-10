@@ -25,9 +25,13 @@ function SecondaryCard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const API_URL = "https://chefconnect-backend.onrender.com/api/recipes";
+        const API_URL = "http://localhost:5000/api/recipes";
         const response = await axios.get(API_URL);
         setAllRecipes(response.data.recipes);
+        console.log(
+          response.data.recipes[0].likesCount,
+          "Likes Count from Secondary Page"
+        );
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -114,15 +118,18 @@ function SecondaryCard() {
                     </div>
 
                     {/* Like and Dislike Buttons */}
+
                     <div className="px-4 pb-4 flex justify-between items-center">
                       <LikeButton
                         recipeId={recipe._id}
                         likesCount={recipe.likesCount}
+                        // dislikeCount={recipe.dislikeCount}
                         setError={handleError}
                       />
                       <DislikeButton
                         recipeId={recipe._id}
                         dislikeCount={recipe.dislikeCount}
+                        // likesCount={recipe.likesCount}
                         setError={handleError}
                       />
                     </div>

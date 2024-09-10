@@ -17,7 +17,7 @@ function OwnerPanel() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const API_URL = "https://chefconnect-backend.onrender.com/api/recipes";
+      const API_URL = "http://localhost:5000/api/recipes";
       try {
         const response = await axios.get(API_URL);
         setAllRecipes(response.data.recipes);
@@ -30,7 +30,7 @@ function OwnerPanel() {
   }, []);
 
   const deleteRecipe = async (recipeId) => {
-    const API_URL = `https://chefconnect-backend.onrender.com/api/admin/${recipeId}`;
+    const API_URL = `http://localhost:5000/api/admin/${recipeId}`;
     try {
       await axios.delete(API_URL);
       setAllRecipes((prevRecipes) =>
