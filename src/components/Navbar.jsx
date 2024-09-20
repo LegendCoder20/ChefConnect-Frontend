@@ -169,8 +169,7 @@ function Navbar() {
                           >
                             <MenuItem>
                               <Link
-                                // to="/userPanel"
-                                onClick={() => nav("/userPanel")}
+                                to="/userPanel"
                                 className={
                                   "block px-4 py-2 text-sm bg-gray-100 text-gray-900"
                                 }
@@ -266,7 +265,7 @@ function Navbar() {
                     </div>
                   </div>
                   <div className="mt-3 space-y-1 px-2">
-                    <Link to="/adminPanel" key="Your Profile">
+                    <Link to="/userPanel" key="Your Profile">
                       <DisclosureButton
                         as="a"
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
