@@ -169,7 +169,8 @@ function Navbar() {
                           >
                             <MenuItem>
                               <Link
-                                to="/userPanel"
+                                // to="/userPanel"
+                                onClick={() => nav("/userPanel")}
                                 className={
                                   "block px-4 py-2 text-sm bg-gray-100 text-gray-900"
                                 }
