@@ -6,6 +6,7 @@ function AdminLogin() {
   const nav = useNavigate();
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState(false);
+  const [count, setCount] = useState(0);
 
   const hPassword = (e) => {
     setPassword(e.target.value);
@@ -20,10 +21,24 @@ function AdminLogin() {
       alert(
         "You Entered Wrong Password. Please Wait for 30 Seconds to Re-Login Again."
       );
+
       setDisabled(true);
+
+      let intervalId = setInterval(() => {
+        setCount((c) => {
+          if (c === 30) {
+            // clearInterval(intervalId);
+            setDisabled(false);
+            return c;
+          }
+          return c + 1;
+        });
+      }, 1000);
+
       setTimeout(() => {
+        setCount(0);
         setDisabled(false);
-        alert("You can Re-Login Now.");
+        clearInterval(intervalId);
       }, 30000);
     }
   };
@@ -81,20 +96,19 @@ function AdminLogin() {
                 disabled={disabled}
                 className="flex w-full justify-center rounded-md bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Login
+                {disabled ? `Wait ${30 - count}s` : "Login"}
               </button>
             </div>
           </form>
           <Link to="/login">
             <p className="mt-10 text-center text-sm text-gray-500">
-              Not a Admin? LogIn here
+              Not an Admin? LogIn here
             </p>
           </Link>
           <p className="mt-10 text-center text-sm text-black">
             Admin Means Owner of this Website.
           </p>
         </div>
-        {/*  */}
       </div>
     </React.Fragment>
   );
