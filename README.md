@@ -2,7 +2,7 @@
 
 A full-stack web application built to connect chefs with food enthusiasts, allowing them to share and discover new recipes.
 
-**➡️ Live Demo:** [**https://your-live-project-url.com**](https://your-live-project-url.com)
+**➡️ Live Demo:** [**https://chefconnect-7yg5.onrender.com/**](https://chefconnect-7yg5.onrender.com/)
 
 ---
 
