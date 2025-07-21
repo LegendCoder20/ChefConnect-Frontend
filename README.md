@@ -1,8 +1,38 @@
-# React + Vite
+# ChefConnect Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack web application built to connect chefs with food enthusiasts, allowing them to share and discover new recipes.
 
-Currently, two official plugins are available:
+**➡️ Live Demo:** [**https://your-live-project-url.com**](https://your-live-project-url.com)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
+
+### About The Project
+
+ChefConnect is a complete MERN stack project that includes user authentication, recipe management, and an admin panel. This project is split into two repositories: one for the frontend (React) and one for the backend (Node.js/Express).
+
+### Project Repositories
+
+- **Frontend Code:** [**github.com/LegendCoder20/ChefConnect-Frontend**](https://github.com/LegendCoder20/ChefConnect-Frontend)
+- **Backend Code:** [**github.com/LegendCoder20/ChefConnect-Backend**](https://github.com/LegendCoder20/ChefConnect-Backend)
+
+---
+
+### Key Features
+
+- **User Accounts:** Secure registration and login for users.
+- **Recipe Management:** Users can create, view, and manage their recipes.
+- **Interactive UI:** A responsive and user-friendly interface.
+- **Admin Panel:** A dedicated dashboard for site administration.
+
+### Technology Stack
+
+- **Frontend:** React, React Router
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB with Mongoose
+- **Authentication:** JSON Web Tokens (JWT)
+
+---
+
+### Contact
+
+Aryan - [**github.com/LegendCoder20**](https://github.com/LegendCoder20)
