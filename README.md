@@ -35,4 +35,5 @@ ChefConnect is a complete MERN stack project that includes user authentication, 
 
 ### Contact
 
-Aryan - [**github.com/LegendCoder20**](https://github.com/LegendCoder20)
+Github - [**github.com/LegendCoder20**](https://github.com/LegendCoder20)
+Linkedin - [**https://www.linkedin.com/in/aryan-manjarekar-/**](https://www.linkedin.com/in/aryan-manjarekar-/)
