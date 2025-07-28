@@ -47,7 +47,8 @@ function Navbar() {
     window.scrollTo(0, 0);
 
     const fetchUserData = async () => {
-      let API_URL = "https://chefconnect-backend.onrender.com/api/users/me";
+      let API_URL =
+        "https://chefconnect-backend-z065.onrender.com/api/users/me";
       let token = localStorage.getItem("Admin");
 
       if (!token) {

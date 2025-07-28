@@ -13,7 +13,7 @@ function DislikeButton({recipeId, dislikeCount, setError}) {
           return;
         }
         const response = await axios.get(
-          `https://chefconnect-backend.onrender.com/api/users/recipe/dislike/${recipeId}`,
+          `https://chefconnect-backend-z065.onrender.com/api/users/recipe/dislike/${recipeId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -42,7 +42,7 @@ function DislikeButton({recipeId, dislikeCount, setError}) {
         return;
       }
       const response = await axios.put(
-        `https://chefconnect-backend.onrender.com/api/users/recipe/dislike/${recipeId}`,
+        `https://chefconnect-backend-z065.onrender.com/api/users/recipe/dislike/${recipeId}`,
         {},
         {
           headers: {

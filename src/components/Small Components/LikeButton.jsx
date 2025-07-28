@@ -13,7 +13,7 @@ function LikeButton({recipeId, likesCount, setError}) {
           return;
         }
         const response = await axios.get(
-          `https://chefconnect-backend.onrender.com/api/users/recipe/like/${recipeId}`,
+          `https://chefconnect-backend-z065.onrender.com/api/users/recipe/like/${recipeId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -39,7 +39,7 @@ function LikeButton({recipeId, likesCount, setError}) {
         return;
       }
       const response = await axios.put(
-        `https://chefconnect-backend.onrender.com/api/users/recipe/like/${recipeId}`,
+        `https://chefconnect-backend-z065.onrender.com/api/users/recipe/like/${recipeId}`,
         {},
         {
           headers: {

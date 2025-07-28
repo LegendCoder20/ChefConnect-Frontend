@@ -19,7 +19,7 @@ function RecipeDetailPage() {
 
   useEffect(() => {
     const fetchRecipe = async () => {
-      const API_URL = `https://chefconnect-backend.onrender.com/api/recipes/recipe/${recipeId}`;
+      const API_URL = `https://chefconnect-backend-z065.onrender.com/api/recipes/recipe/${recipeId}`;
       const response = await axios.get(API_URL);
       setRecipe(response.data.recipe);
       console.log(response.data.recipe.category);
