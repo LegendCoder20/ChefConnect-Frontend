@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "./Navbar";
-import aryanPhoto from "../../images/Website Owner Photo.png";
+import aryanPhoto from "../../images/Website Owner Photo.jpg";
 
 function AboutUs() {
   return (
