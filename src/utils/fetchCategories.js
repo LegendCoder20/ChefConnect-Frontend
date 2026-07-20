@@ -5,7 +5,7 @@ function useFetchCategories() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    let API_URL = "https://chefconnect-backend-z065.onrender.com/api/recipes/";
+    let API_URL = "http://localhost:5000/api/recipes/";
     const fetchCategories = async () => {
       const response = await axios.get(API_URL);
 
