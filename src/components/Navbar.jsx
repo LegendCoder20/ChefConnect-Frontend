@@ -48,7 +48,7 @@ function Navbar() {
 
     const fetchUserData = async () => {
       let API_URL =
-        "http://localhost:5000/api/users/me";
+        "https://chefconnect-backend-z065.onrender.com/api/users/me";
       let token = localStorage.getItem("Admin");
 
       if (!token) {
