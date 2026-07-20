@@ -1,10 +1,14 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 
-function LikeButton({recipeId, likesCount, setError}) {
-  const [liked, setLiked] = useState(false);
-  const [count, setCount] = useState(likesCount);
-
+function LikeButton({
+  recipeId,
+  liked,
+  likesCount,
+  setLiked,
+  setLikesCount,
+  setError,
+}) {
   useEffect(() => {
     const checkIfLiked = async () => {
       try {
@@ -13,7 +17,7 @@ function LikeButton({recipeId, likesCount, setError}) {
           return;
         }
         const response = await axios.get(
-          `https://chefconnect-backend-z065.onrender.com/api/users/recipe/like/${recipeId}`,
+          `http://localhost:5000/api/users/recipe/like/${recipeId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -21,7 +25,7 @@ function LikeButton({recipeId, likesCount, setError}) {
           }
         );
         setLiked(response.data.liked);
-        setCount(response.data.likesCount);
+        setLikesCount(response.data.likesCount);
       } catch (err) {
         console.error("Error Checking If Recipe Liked", err);
         setError("Error checking like status.");
@@ -29,7 +33,7 @@ function LikeButton({recipeId, likesCount, setError}) {
     };
 
     checkIfLiked();
-  }, [recipeId, setError]);
+  }, [recipeId, setError, setLiked, setLikesCount]);
 
   const handleClick = async () => {
     try {
@@ -39,7 +43,7 @@ function LikeButton({recipeId, likesCount, setError}) {
         return;
       }
       const response = await axios.put(
-        `https://chefconnect-backend-z065.onrender.com/api/users/recipe/like/${recipeId}`,
+        `http://localhost:5000/api/users/recipe/like/${recipeId}`,
         {},
         {
           headers: {
@@ -50,7 +54,7 @@ function LikeButton({recipeId, likesCount, setError}) {
 
       if (response.status === 200) {
         setLiked(!liked);
-        setCount(response.data.likesCount);
+        setLikesCount(response.data.likesCount);
       } else {
         console.error("Unexpected response status:", response.status);
         setError("Unexpected error occurred.");
@@ -72,7 +76,7 @@ function LikeButton({recipeId, likesCount, setError}) {
         } hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50`}
       >
         <span id="count" className="mr-2">
-          {count}
+          {likesCount}
         </span>
         {liked ? "Liked" : "Like"}
       </button>

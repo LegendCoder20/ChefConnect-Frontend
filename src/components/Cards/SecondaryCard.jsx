@@ -22,11 +22,18 @@ function SecondaryCard() {
   const [toastVisible, setToastVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Like States
+  const [liked, setLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
+
+  // Dislike States
+  const [disliked, setDisliked] = useState(false);
+  const [dislikeCount, setDislikeCount] = useState(0);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const API_URL =
-          "https://chefconnect-backend-z065.onrender.com/api/recipes";
+        const API_URL = "http://localhost:5000/api/recipes";
         const response = await axios.get(API_URL);
         setAllRecipes(response.data.recipes);
         console.log(
@@ -123,14 +130,18 @@ function SecondaryCard() {
                     <div className="px-4 pb-4 flex justify-between items-center">
                       <LikeButton
                         recipeId={recipe._id}
-                        likesCount={recipe.likesCount}
-                        // dislikeCount={recipe.dislikeCount}
+                        liked={liked}
+                        likesCount={likesCount}
+                        setLiked={setLiked}
+                        setLikesCount={setLikesCount}
                         setError={handleError}
                       />
                       <DislikeButton
                         recipeId={recipe._id}
-                        dislikeCount={recipe.dislikeCount}
-                        // likesCount={recipe.likesCount}
+                        disliked={disliked}
+                        dislikeCount={dislikeCount}
+                        setDisliked={setDisliked}
+                        setDislikeCount={setDislikeCount}
                         setError={handleError}
                       />
                     </div>

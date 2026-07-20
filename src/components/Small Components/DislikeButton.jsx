@@ -1,10 +1,14 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 
-function DislikeButton({recipeId, dislikeCount, setError}) {
-  const [disliked, setDisliked] = useState(false);
-  const [count, setCount] = useState(dislikeCount);
-
+function DislikeButton({
+  recipeId,
+  disliked,
+  dislikeCount,
+  setDislikeCount,
+  setDisliked,
+  setError,
+}) {
   useEffect(() => {
     const checkIfDisliked = async () => {
       try {
@@ -13,7 +17,7 @@ function DislikeButton({recipeId, dislikeCount, setError}) {
           return;
         }
         const response = await axios.get(
-          `https://chefconnect-backend-z065.onrender.com/api/users/recipe/dislike/${recipeId}`,
+          `http://localhost:5000/api/users/recipe/dislike/${recipeId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -21,7 +25,7 @@ function DislikeButton({recipeId, dislikeCount, setError}) {
           }
         );
         setDisliked(response.data.disliked);
-        setCount(response.data.dislikeCount); // Update count from backend response
+        setDislikeCount(response.data.dislikeCount); // Update count from backend response
       } catch (err) {
         console.error(
           "Error Checking If Recipe Disliked -> from Frontend",
@@ -32,7 +36,7 @@ function DislikeButton({recipeId, dislikeCount, setError}) {
     };
 
     checkIfDisliked();
-  }, [recipeId, setError]);
+  }, [recipeId, setError, setDisliked, setDislikeCount]);
 
   const handleClick = async () => {
     try {
@@ -42,7 +46,7 @@ function DislikeButton({recipeId, dislikeCount, setError}) {
         return;
       }
       const response = await axios.put(
-        `https://chefconnect-backend-z065.onrender.com/api/users/recipe/dislike/${recipeId}`,
+        `http://localhost:5000/api/users/recipe/dislike/${recipeId}`,
         {},
         {
           headers: {
@@ -53,7 +57,7 @@ function DislikeButton({recipeId, dislikeCount, setError}) {
 
       if (response.status === 200) {
         setDisliked(!disliked); // Toggle the disliked state
-        setCount(response.data.dislikeCount); // Update the count
+        setDislikeCount(response.data.dislikeCount); // Update the count
       } else {
         console.error("Unexpected response status:", response.status);
         setError("Unexpected error occurred.");
@@ -74,7 +78,7 @@ function DislikeButton({recipeId, dislikeCount, setError}) {
       onClick={handleClick}
     >
       <span id="count" className="pr-2">
-        {count}
+        {dislikeCount}
       </span>
       {disliked ? "Disliked" : "Dislike"}
     </button>
