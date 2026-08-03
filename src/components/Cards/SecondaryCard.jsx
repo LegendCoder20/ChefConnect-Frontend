@@ -23,12 +23,12 @@ function SecondaryCard() {
   const [errorMessage, setErrorMessage] = useState("");
 
   // Like States
-  const [liked, setLiked] = useState(false);
-  const [likesCount, setLikesCount] = useState(0);
+  const [likedRecipes, setLikedRecipes] = useState({});
+  const [likesCount, setLikesCount] = useState({});
 
-  // Dislike States
-  const [disliked, setDisliked] = useState(false);
-  const [dislikeCount, setDislikeCount] = useState(0);
+  // Dislik e States
+  const [dislikedRecipes, setDislikedRecipes] = useState({});
+  const [dislikeCount, setDislikeCount] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -130,18 +130,40 @@ function SecondaryCard() {
                     <div className="px-4 pb-4 flex justify-between items-center">
                       <LikeButton
                         recipeId={recipe._id}
-                        liked={liked}
-                        likesCount={likesCount}
-                        setLiked={setLiked}
-                        setLikesCount={setLikesCount}
+                        liked={likedRecipes[recipe._id] || false}
+                        likesCount={likesCount[recipe._id] || recipe.likesCount}
+                        setLiked={(value) =>
+                          setLikedRecipes((prev) => ({
+                            ...prev,
+                            [recipe._id]: value,
+                          }))
+                        }
+                        setLikesCount={(value) =>
+                          setLikesCount((prev) => ({
+                            ...prev,
+                            [recipe._id]: value,
+                          }))
+                        }
                         setError={handleError}
                       />
                       <DislikeButton
                         recipeId={recipe._id}
-                        disliked={disliked}
-                        dislikeCount={dislikeCount}
-                        setDisliked={setDisliked}
-                        setDislikeCount={setDislikeCount}
+                        disliked={dislikedRecipes[recipe._id] || false}
+                        dislikeCount={
+                          dislikeCount[recipe._id] || recipe.dislikeCount
+                        }
+                        setDisliked={(value) =>
+                          setDislikedRecipes((prev) => ({
+                            ...prev,
+                            [recipe._id]: value,
+                          }))
+                        }
+                        setDislikeCount={(value) =>
+                          setDislikeCount((prev) => ({
+                            ...prev,
+                            [recipe._id]: value,
+                          }))
+                        }
                         setError={handleError}
                       />
                     </div>

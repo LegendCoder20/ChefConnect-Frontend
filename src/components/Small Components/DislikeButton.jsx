@@ -24,8 +24,13 @@ function DislikeButton({
             },
           }
         );
-        setDisliked(response.data.disliked);
-        setDislikeCount(response.data.dislikeCount); // Update count from backend response
+        if (disliked !== response.data.disliked) {
+          setDisliked(response.data.disliked);
+        }
+
+        if (dislikeCount !== response.data.dislikeCount) {
+          setDislikeCount(response.data.dislikeCount);
+        }
       } catch (err) {
         console.error(
           "Error Checking If Recipe Disliked -> from Frontend",
@@ -70,17 +75,17 @@ function DislikeButton({
 
   return (
     <button
-      className={`flex items-center justify-center px-4 py-2 text-white font-semibold rounded-lg shadow-lg transition-transform transform hover:scale-105 active:scale-95 ${
-        disliked
-          ? "bg-gradient-to-r from-blue-500 to-blue-700"
-          : "bg-gradient-to-r from-blue-500 to-blue-700"
-      } hover:from-blue-600 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50`}
       onClick={handleClick}
+      className={`flex items-center justify-center px-4 py-2 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 ${
+        disliked
+          ? "bg-gradient-to-r from-red-500 to-red-700"
+          : "bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800"
+      } focus:outline-none focus:ring-2 focus:ring-red-300`}
     >
-      <span id="count" className="pr-2">
+      <span id="count" className="mr-2">
         {dislikeCount}
       </span>
-      {disliked ? "Disliked" : "Dislike"}
+      Dislike
     </button>
   );
 }
